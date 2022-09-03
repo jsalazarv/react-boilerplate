@@ -41,10 +41,17 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: npm ci
+
+      - name: Running test
+      - run: npm run test
+
+      - name: Build for production
       - run: echo using path ${{ secrets.PROJECT_PATH }}
       - run: PROJECT_PATH=${{ secrets.PROJECT_PATH }} npm run build --if-present
+
       - name: Setup Pages
         uses: actions/configure-pages@v1
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
