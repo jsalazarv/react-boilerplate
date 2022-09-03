@@ -36,12 +36,15 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Use Node.js ${{ matrix.node-version }}
+        env:
+          PROJECT_PATH: ${{ secrets.PROJECT_PATH }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: npm ci
-      - run: npm run build:deploy --if-present
+      - run: echo using path $PROJECT_PATH
+      - run: npm run build --if-present
       - name: Setup Pages
         uses: actions/configure-pages@v1
       - name: Upload artifact
